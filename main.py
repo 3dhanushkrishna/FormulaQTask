@@ -1,5 +1,6 @@
 import os
 import pathlib
+import datetime
 
 import requests
 from flask import Flask, session, abort, redirect, request
@@ -7,6 +8,7 @@ from google.oauth2 import id_token
 from google_auth_oauthlib.flow import Flow
 from pip._vendor import cachecontrol
 import google.auth.transport.requests
+
 
 app = Flask("Google Login App")
 app.secret_key = "CodeSpecialist.com"
@@ -79,6 +81,8 @@ def home():
 @app.route("/protected_area")
 @login_is_required
 def protected_area():
+     now = datetime.datetime.now()
+     print(now.strftime("%Y-%m-%d %H:%M:%S"))
      return f"Hello {session['name']} <a href='/logout'><button>Signout</button></a> <br>You are signed in with the email {session['email']} <br/>"
 
 
